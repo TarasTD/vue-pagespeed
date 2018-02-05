@@ -10,6 +10,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const OptimizeCSSPlugin = require('optimize-css-assets-webpack-plugin')
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
+const SWPrecachePlugin = require('sw-precache-webpack-plugin')
 
 const env = process.env.NODE_ENV === 'testing'
   ? require('../config/test.env')
@@ -140,6 +141,23 @@ if (config.build.productionGzip) {
     })
   )
 }
+
+
+webpackConfig.plugins.push(
+  // auto generate service worker
+  new SWPrecachePlugin({
+    cacheId: 'vue-pagespeed',
+    filename: 'service-worker.js',
+    minify: true,
+    dontCacheBustUrlsMatching: /./,
+    staticFileGlobs: ['dist/**/*.{js,html,css}'],
+    staticFileGlobsIgnorePatterns: [/\.map$/, /\.json$/],
+    runtimeCaching: [{
+      urlPattern: /\/.*/,
+      handler: "networkFirst"
+    }],
+  })
+)
 
 if (config.build.bundleAnalyzerReport) {
   const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
