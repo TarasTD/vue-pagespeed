@@ -8,7 +8,7 @@
         <div class="device-label">
           Desktop
         </div>
-        <BvDonut></BvDonut>
+        <BvDonut :color="'green'"></BvDonut>
         <ReadLess
           :maxHeightInitial="'0px'"
           :maxHeightAfter="'1760px'"
@@ -39,7 +39,7 @@
         <div class="device-label">
           Mobile
         </div>
-        <BvDonut></BvDonut>
+        <BvDonut :color="'red'"></BvDonut>
         <ReadLess
         :maxHeightInitial="'0px'"
         :maxHeightAfter="'1760px'"

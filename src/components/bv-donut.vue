@@ -29,9 +29,12 @@ export default {
   name: 'BvDonut',
   data () {
     return {
-      color: 'red'
+      colorDefault: 'red'
     }
   },
+  props: [
+    'color'
+  ],
   components: {
     DonutProgress
   }
