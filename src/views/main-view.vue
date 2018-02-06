@@ -1,34 +1,36 @@
 <template>
-  <div class="content" v-if="!loading">
-    <h1 class="title">
-      {{ title }}
-    </h1>
-    <div class="stats" v-for="(value, key) in stats">
-      <strong>{{key}}</strong>
-      <span>{{value}}</span>
+  <div>
+    <div v-if="!loading">
+      <BvHeader></BvHeader>
+      <HeroBlock></HeroBlock>
+      <ContentContainer></ContentContainer>
     </div>
-    <div>
-      <strong class="speedScore">Speed</strong>
-      <span class="speedScore">{{speed}}</span>
-    </div>
-  </div>
-  <div v-else class="loading">
-    <div class="loadingLabel">LOADING...</div><br>
-    <div>
-      <small><em>{{url}}</em></small>
+
+    <div v-else class="loading">
+      <div class="fa-3x">
+        <i class="fas fa-circle-notch fa-spin"></i>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
 import api from '../api'
+import BvHeader from '@/components/bv-header'
+import HeroBlock from '@/components/hero-block'
+import ContentContainer from '@/components/content-container'
 
 export default {
   name: 'mainView',
+  components: {
+    BvHeader,
+    HeroBlock,
+    ContentContainer
+  },
   data () {
     return {
       msg: 'message',
-      loading: true,
+      loading: false,
       stats: '',
       url: 'belvilla.com'
     }
