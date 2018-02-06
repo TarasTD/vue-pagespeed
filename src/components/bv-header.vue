@@ -1,11 +1,13 @@
 <template>
   <nav class="navbar" role="navigation" aria-label="main navigation">
-    <div class="navbar-brand">
-      <div class="navbar-item" href="https://bulma.io">
-        <img src="../assets/logo.svg" alt="Belvilla" width="100" height="20">
-      </div>
-      <div class="navbar-item header-label">
-        Belvilla pagespeed insight
+    <div class="container">
+      <div class="navbar-brand">
+        <div class="navbar-item" href="https://bulma.io">
+          <img src="../assets/logo.svg" alt="Belvilla" width="100" height="20">
+        </div>
+        <div class="navbar-item header-label">
+          Belvilla pagespeed insight
+        </div>
       </div>
     </div>
   </nav>

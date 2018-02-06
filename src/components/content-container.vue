@@ -1,34 +1,36 @@
 <template>
   <div class="main-tabs">
-    <b-tabs position="is-left" class="block" >
-      <b-tab-item label="home">
-        <div class="tab-content container">
-          <BvMetric></BvMetric>
-          <BvMetric></BvMetric>
-          <BvMetric></BvMetric>
-          <BvMetric></BvMetric>
-          <BvMetric></BvMetric>
-          <BvMetric></BvMetric>
-          <BvMetric></BvMetric>
-          <BvMetric></BvMetric>
-          <BvMetric></BvMetric>
-        </div>
-      </b-tab-item>
-      <b-tab-item label="search">
-        <div class="tab-content container">
+    <div class="container">
+      <b-tabs position="is-left" class="block" >
+        <b-tab-item label="home">
+          <div class="tab-content container">
             <BvMetric></BvMetric>
             <BvMetric></BvMetric>
             <BvMetric></BvMetric>
-        </div>
-      </b-tab-item>
-      <b-tab-item label="product detail">
-        <div class="tab-content container">
             <BvMetric></BvMetric>
             <BvMetric></BvMetric>
             <BvMetric></BvMetric>
-        </div>
-      </b-tab-item>
-    </b-tabs>
+            <BvMetric></BvMetric>
+            <BvMetric></BvMetric>
+            <BvMetric></BvMetric>
+          </div>
+        </b-tab-item>
+        <b-tab-item label="search">
+          <div class="tab-content container">
+              <BvMetric></BvMetric>
+              <BvMetric></BvMetric>
+              <BvMetric></BvMetric>
+          </div>
+        </b-tab-item>
+        <b-tab-item label="product detail">
+          <div class="tab-content container">
+              <BvMetric></BvMetric>
+              <BvMetric></BvMetric>
+              <BvMetric></BvMetric>
+          </div>
+        </b-tab-item>
+      </b-tabs>
+    </div>
   </div>
 </template>
 <script>
@@ -46,8 +48,10 @@ export default {
     background-color: #FFF;
   }
   .main-tabs {
+    top: -40px;
+    position: relative;
+
     .tab-content {
-      /* margin-left: 2rem; */
     }
     li {
       margin-left: 1rem;
