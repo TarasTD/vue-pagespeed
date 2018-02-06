@@ -18,6 +18,11 @@ export default {
 </script>
 <style lang="scss" scoped>
   .navbar {
+    position: fixed;
+    width: 100%;
+    top: 0;
+    background: rgba(256,256,256,0.8);
+    z-index: 100;
     border-bottom: 1px solid lightgray;
     .header-label {
       top: 5px;

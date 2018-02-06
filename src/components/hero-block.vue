@@ -2,7 +2,7 @@
   <section class="hero is-medium is-bold">
     <div class="hero-body">
       <div class="container">
-        <div class="columns is-mobile">
+        <div class="columns">
           <div class="colomn is-5">
             <h1 class="title">
               Page title: Book your holiday home
@@ -14,6 +14,9 @@
               <a class="button is-info is-outlined rounded">Analyze now</a>
             </div>
           </div>
+          <div class="column is-offset-1">
+              <BvGraph></BvGraph>
+          </div>
         </div>
       </div>
     </div>
@@ -21,8 +24,13 @@
 </template>
 
 <script>
+import BvGraph from '@/components/bv-graph.vue'
+
 export default {
-  name: 'HeroBlock'
+  name: 'HeroBlock',
+  components: {
+    BvGraph
+  }
 }
 
 </script>

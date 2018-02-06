@@ -1,17 +1,6 @@
 <template>
   <div class="donut-container">
-    <div class="donut">
-      <div class="label-score">
-        <div class="score-values">
-          <span class="result-values" :style="{color: color}">50/100</span>
-          <span class="result-label">speed</span>
-        </div>
-      </div>
-    </div>
-    <div class="active-indicator">
-      <div class="bar"></div>
-      <div class="fill"></div>
-    </div>
+    <DonutProgress :value="80" :color="color"></DonutProgress>
     <div class="side-values">
         <div class="side-top">
           <div class="side-top-label" :style="{color: color}">
@@ -33,14 +22,18 @@
       </div>
   </div>
 </template>
-
 <script>
+import DonutProgress from '@/components/donut-progress.vue'
+
 export default {
   name: 'BvDonut',
   data () {
     return {
       color: 'red'
     }
+  },
+  components: {
+    DonutProgress
   }
 
 }
@@ -48,37 +41,6 @@ export default {
 <style lang="scss" scoped>
   .donut-container {
     display: flex;
-  }
-  .donut {
-    width: 100px;
-    height: 100px;
-    border: 4px solid lightgray;
-    border-radius: 50%;
-    display: inline-flex;
-
-    .active-indicator {
-
-    }
-
-    .label-score {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100%;
-      width: 100%;
-
-      .score-values {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        flex-direction: column;
-      }
-
-      .result-label {
-        color: gray;
-        font-weight: 500;
-      }
-    }
   }
   .side-values {
     display: inline-flex;
