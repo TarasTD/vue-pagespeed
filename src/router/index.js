@@ -10,19 +10,23 @@ export default new Router({
     {
       path: '/property',
       name: 'property',
-      component: mainView
+      component: mainView,
+      props: { url: 'belvilla.com/holiday-home/austria/saalbach-hinterglemm-8-persons-AT-5754-23' }
     }, {
       path: '/search',
       name: 'search',
-      component: mainView
+      component: mainView,
+      props: { url: 'belvilla.com/search' }
     }, {
       path: '/home',
       name: 'home',
-      component: mainView
+      component: mainView,
+      props: { url: 'belvilla.com' }
     }, {
       path: '/',
       name: 'homePage',
       component: mainView,
+      props: { url: 'belvilla.com' },
       redirect: '/home'
     }
   ]

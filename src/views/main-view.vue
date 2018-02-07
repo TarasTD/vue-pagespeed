@@ -1,15 +1,9 @@
 <template>
   <div>
-    <div v-if="!loading">
+    <div>
       <BvHeader></BvHeader>
-      <HeroBlock></HeroBlock>
-      <ContentContainer></ContentContainer>
-    </div>
-
-    <div v-else class="loading">
-      <div class="fa-3x">
-        <i class="fas fa-circle-notch fa-spin"></i>
-      </div>
+      <HeroBlock :title="title" :url="url" :loading="loading"></HeroBlock>
+      <ContentContainer :title="title" :loading="loading"></ContentContainer>
     </div>
   </div>
 </template>
@@ -30,25 +24,36 @@ export default {
   data () {
     return {
       msg: 'message',
-      loading: false,
+      loading: true,
       stats: '',
-      url: 'belvilla.com'
+      title: '',
+      speed: 0
     }
   },
-  mounted () {
-    this.getData().then(
-      (i) => {
-        this.loading = false
-        this.title = i.data.title
-        this.stats = i.data.pageStats
-        this.speed = i.data.ruleGroups.SPEED.score
-      }
-    )
+  props: [
+    'url'
+  ],
+  beforeMount () {
+    this.getData()
+  },
+
+  watch: {
+    url: function (newQuestion, oldQuestion) {
+      this.getData()
+    }
   },
 
   methods: {
     getData: function () {
-      return api.fetchTest(this.url)
+      this.loading = true;
+      api.fetchTest(this.url).then(
+      (response) => {
+        this.loading = false
+        this.title = response.data.title
+        this.stats = response.data.pageStats
+        this.speed = response.data.ruleGroups.SPEED.score
+      }
+    )
     }
   }
 }
