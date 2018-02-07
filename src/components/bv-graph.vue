@@ -38,7 +38,7 @@ export default {
   name: 'BvGraph',
   data () {
     return {
-      radioButton: '',
+      radioButton: 'true',
       chartData: {
         labels: ['01.01.18', '02.01.18', '03.01.18', '04.01.18', '05.01.18', '06.01.18', '07.01.18', '08.01.18', '09.01.18', '10.01.18'],
         series: [[30, 45, 50, 51, 54, 51, 55, 55, 50, 55, 55]]
@@ -48,12 +48,7 @@ export default {
         seriesBarDistance: 15,
         low: 0,
         high: 100,
-        showArea: true,
-        // reverseData: true,
-        // horizontalBars: true,
-        // axisY: {
-        //   offset: 70
-        // }
+        showArea: true
       },
       responsiveOptions: [
         ['screen and (min-width: 1024px) and (max-width: 1440px)', {
@@ -73,7 +68,7 @@ export default {
           }
         }],
         ['screen and (min-width: 641px) and (max-width: 768px)', {
-          seriesBarDistance: 10,
+          seriesBarDistance: 5,
           axisX: {
             labelInterpolationFnc: function (value) {
               return value
