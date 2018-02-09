@@ -7,6 +7,8 @@
                  :loading="loading"
                  :loadingRecent="loadingRecent"
                  @analizeNow="fetchRecent"
+                 :chartData="chartData"
+                 :loadingGraph="loadingGraph"
                  :currentData="currentVersionData">
       </HeroBlock>
       <ContentContainer :loading="loading"
@@ -33,10 +35,12 @@ export default {
   data () {
     return {
       loading: true,
+      loadingGraph: true,
       title: '',
       statisticsData: '',
       currentVersionData: false,
-      loadingRecent: false
+      loadingRecent: false,
+      chartData: {}
     }
   },
   props: [
@@ -44,13 +48,24 @@ export default {
   ],
   beforeMount () {
     this.getData()
+    this.getGraphdata()
   },
   watch: {
     url: function (newQuestion, oldQuestion) {
       this.getData()
+      this.getGraphdata()
     }
   },
   methods: {
+    getGraphdata: function () {
+      this.loadingGraph = true
+      api.fetchGraphdata().then(
+        (responce) => {
+          this.loadingGraph = false
+          this.chartData = responce
+        }
+      )
+    },
     getData: function (dinamic) {
       this.loading = true
       api.fetchTest(this.url, 'mobile').then(
@@ -88,25 +103,22 @@ export default {
     },
     fetchRecent: function () {
       this.loadingRecent = true
-      api.fetchNow(this.url, 'mobile').then(
-        (responseMobile) => {
-          api.fetchNow(this.url, 'desktop').then(
-            (responseDesktop) => {
-              this.loadingRecent = false
-              this.currentVersionData = [{
-                currentVersionUrl: this.url,
-                date: 'Just now',
-                mobile: {
-                  data: responseMobile.data
-                },
-                desktop: {
-                  data: responseDesktop.data
-                }
-              }]
-            }
-          )
-        }
-      )
+      let mobileData = api.fetchNow(this.url, 'mobile')
+      let desktopData = api.fetchNow(this.url, 'desktop')
+
+      Promise.all([mobileData, desktopData]).then(values => {
+        this.loadingRecent = false
+        this.currentVersionData = [{
+          currentVersionUrl: this.url,
+          date: 'Just now',
+          mobile: {
+            data: values[0].data
+          },
+          desktop: {
+            data: values[1].data
+          }
+        }]
+      })
     }
   }
 }

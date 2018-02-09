@@ -18,7 +18,7 @@
             </div>
           </div>
           <div class="column is-offset-1 is-6">
-              <BvGraph v-if="!loading"></BvGraph>
+              <BvGraph v-if="!loadingGraph" :chartData="chartData"></BvGraph>
               <div v-else class="loading">
                 <BvLoader :simpleLoader="true"></BvLoader>
               </div>
@@ -52,7 +52,9 @@ export default {
     'url',
     'loading',
     'currentData',
-    'loadingRecent'
+    'loadingRecent',
+    'chartData',
+    'loadingGraph'
   ],
   mounted () {
   },

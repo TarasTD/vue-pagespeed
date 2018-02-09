@@ -27,7 +27,8 @@
       <div class="columns">
         <div class="column">
           <div class="device-label">
-            <div class="pageStatItem" v-for="(statValue, statKey) in pageData.pageStats">
+            <div class="pageStatItem"
+                 v-for="(statValue, statKey) in pageData.pageStats" v-bind:key="statKey">
               <span class="statKey">{{statKey}}</span> -
               <span>{{statValue}}</span>
             </div>

@@ -28,5 +28,33 @@ export default {
           })
       }
     )
+  },
+  fetchGraphdata: function (url) {
+    let data = {
+      '01.01.18': [12, 1],
+      '02.01.18': [13, 20],
+      '03.01.18': [15, 41],
+      '04.01.18': [1, 5],
+      '05.01.18': [55, 12],
+      '06.01.18': [64, 5],
+      '07.01.18': [33, 45],
+      '08.01.18': [23, 43],
+      '09.01.18': [23, 56],
+      '10.01.18': [90, 89]
+    }
+    let result = {
+      labels: [],
+      series: [[], []]
+    }
+    Object.keys(data).forEach((item) => {
+      result.labels.push(item)
+      result.series[0].push(data[item][0])
+      result.series[1].push(data[item][1])
+    })
+    return new Promise(
+      (resolve, reject) => {
+        resolve(result)
+      }
+    )
   }
 }
