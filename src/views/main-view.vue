@@ -2,8 +2,17 @@
   <div>
     <div>
       <BvHeader></BvHeader>
-      <HeroBlock :title="title" :url="url" :loading="loading"></HeroBlock>
-      <ContentContainer :title="title" :loading="loading"></ContentContainer>
+      <HeroBlock :title="title"
+                 :url="url"
+                 :loading="loading"
+                 :loadingRecent="loadingRecent"
+                 @analizeNow="fetchRecent"
+                 :currentData="currentVersionData">
+      </HeroBlock>
+      <ContentContainer :loading="loading"
+                        :title="title"
+                        :statisticsData="statisticsData">
+      </ContentContainer>
     </div>
   </div>
 </template>
@@ -23,11 +32,11 @@ export default {
   },
   data () {
     return {
-      msg: 'message',
       loading: true,
-      stats: '',
       title: '',
-      speed: 0
+      statisticsData: '',
+      currentVersionData: false,
+      loadingRecent: false
     }
   },
   props: [
@@ -36,24 +45,68 @@ export default {
   beforeMount () {
     this.getData()
   },
-
   watch: {
     url: function (newQuestion, oldQuestion) {
       this.getData()
     }
   },
-
   methods: {
-    getData: function () {
-      this.loading = true;
-      api.fetchTest(this.url).then(
-      (response) => {
-        this.loading = false
-        this.title = response.data.title
-        this.stats = response.data.pageStats
-        this.speed = response.data.ruleGroups.SPEED.score
-      }
-    )
+    getData: function (dinamic) {
+      this.loading = true
+      api.fetchTest(this.url, 'mobile').then(
+        (response) => {
+          this.loading = false
+          this.title = response.data.title
+          this.statisticsData =
+          [{
+            date: '21.01.2017',
+            mobile: {
+              data: response.data
+            },
+            desktop: {
+              data: response.data
+            }
+          }, {
+            date: '22.01.2017',
+            mobile: {
+              data: response.data
+            },
+            desktop: {
+              data: response.data
+            }
+          }, {
+            date: '23.01.2017',
+            mobile: {
+              data: response.data
+            },
+            desktop: {
+              data: response.data
+            }
+          }]
+        }
+      )
+    },
+    fetchRecent: function () {
+      this.loadingRecent = true
+      api.fetchNow(this.url, 'mobile').then(
+        (responseMobile) => {
+          api.fetchNow(this.url, 'desktop').then(
+            (responseDesktop) => {
+              this.loadingRecent = false
+              this.currentVersionData = [{
+                currentVersionUrl: this.url,
+                date: 'Just now',
+                mobile: {
+                  data: responseMobile.data
+                },
+                desktop: {
+                  data: responseDesktop.data
+                }
+              }]
+            }
+          )
+        }
+      )
     }
   }
 }

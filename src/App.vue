@@ -10,19 +10,21 @@ export default {
 }
 </script>
 
-<style>
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  color: #2c3e50;
-}
-body {
-  top: 50px;
-  position: relative;
-}
+<style lang="scss">
+  @import "styles/app.scss";
 
-html {
-  background-color: #f9f9f9;
-}
+  #app {
+    font-family: 'Avenir', Helvetica, Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    color: #2c3e50;
+  }
+  body {
+    top: 50px;
+    position: relative;
+  }
+
+  html {
+    background-color: #f9f9f9;
+  }
 </style>

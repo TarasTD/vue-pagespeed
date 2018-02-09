@@ -1,71 +1,45 @@
 <template>
   <div class="main-tabs">
     <div class="container">
-      <b-tabs position="is-left" class="block" v-model="activeTab" v-on:change="naviateTo">
-        <b-tab-item label="home">
-          <div class="tab-content container">
-            <div class="content" v-if="!loading">
-              <BvMetric></BvMetric>
-              <BvMetric></BvMetric>
-              <BvMetric></BvMetric>
-              <BvMetric></BvMetric>
-              <BvMetric></BvMetric>
-              <BvMetric></BvMetric>
-              <BvMetric></BvMetric>
-              <BvMetric></BvMetric>
-              <BvMetric></BvMetric>
-            </div>
-            <div v-else class="loading">
-              <BvLoader></BvLoader>
-            </div>
-          </div>
-        </b-tab-item>
-        <b-tab-item label="search">
-          <div class="tab-content container">
-            <div class="content" v-if="!loading">
-              <BvMetric></BvMetric>
-              <BvMetric></BvMetric>
-              <BvMetric></BvMetric>
-            </div>
-            <div v-else class="loading">
-              <BvLoader></BvLoader>
-            </div>
-          </div>
-        </b-tab-item>
-        <b-tab-item label="product detail">
-          <div class="tab-content container">
-            <div class="content" v-if="!loading">
-              <BvMetric></BvMetric>
-              <BvMetric></BvMetric>
-              <BvMetric></BvMetric>
-            </div>
-            <div v-else class="loading">
-              <BvLoader></BvLoader>
-            </div>
-          </div>
+      <b-tabs position="is-left"
+              class="block"
+              v-model="activeTab"
+              v-on:change="naviateTo">
+        <b-tab-item v-for="(page, index) in pages"
+                    v-bind:key="index"
+                    :label="page">
+          <TabContent :statisticsData="statisticsData"
+                      :loading="loading"
+                      :simpleLoader="false"
+                      >
+          </TabContent>
         </b-tab-item>
       </b-tabs>
     </div>
   </div>
 </template>
 <script>
-import BvMetric from '@/components/bv-metric.vue'
-import BvLoader from '@/components/bv-loader.vue'
+import TabContent from '@/components/tab-content.vue'
 
 export default {
   name: 'BvContainer',
   components: {
-    BvMetric,
-    BvLoader
+    TabContent
   },
   data () {
     return {
       activeTab: 0,
-      activeTabName: 'home'
+      activeTabName: 'home',
+      pages: [
+        'home',
+        'search',
+        'product details'
+      ]
     }
   },
   props: [
-    'loading'
+    'loading',
+    'statisticsData'
   ],
   mounted () {
     this.mapRoute(this.$route.name)
@@ -105,29 +79,15 @@ export default {
   }
 }
 </script>
-<style lang="scss">
+<style lang="scss" scoped>
   .tabs {
     background-color: #FFF;
   }
   .main-tabs {
     top: -40px;
     position: relative;
-
-    .tab-content {
-    }
     li {
       margin-left: 1rem;
     }
-    .is-active {
-      font-weight: 500;
-      text-transform: uppercase;
-    }
-  }
-  .loading {
-    /* display: flex; */
-    /* align-items: center; */
-    /* justify-content: center; */
-    width: 100%;
-    height: 100%;
   }
 </style>

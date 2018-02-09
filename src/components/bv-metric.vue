@@ -1,111 +1,36 @@
 <template>
   <div class="metric-item">
-    <div class="period-label">
-      12.01.2018
+    <div class="device-label">
+      {{ type }}
     </div>
-    <div class="columns">
-      <div class="column is-5">
-        <div class="device-label">
-          Desktop
+    <div class="snapshots is-hidden-mobile" v-if="pageData.snapshots">
+      <div class="columns is-multiline">
+        <div v-for="(snapshot, index) in pageData.snapshots"
+             v-bind:key="index"
+             class="column is-narrow">
+          <img :src="getImageUrl(snapshot.data)"
+               alt="site snapshot"
+              class="snapshotImage">
         </div>
-        <BvDonut :color="'green'"></BvDonut>
-        <ReadLess
-          :maxHeightInitial="'0px'"
-          :maxHeightAfter="'1760px'"
-          class="is-hidden-tablet">
-          <div class="columns">
-            <div class="column">
-              <div class="device-label">
-                  numberResources: 53,<br>
-                  numberHosts: 15,<br>
-                  totalRequestBytes: 8304,<br>
-                  numberStaticResources: 35,<br>
-                  htmlResponseBytes: 80474,<br>
-                  overTheWireResponseBytes: 970506,<br>
-                  cssResponseBytes: 631809,<br>
-                  imageResponseBytes: 538294,<br>
-                  javascriptResponseBytes: 1047857,<br>
-                  otherResponseBytes: 2994,<br>
-                  numberJsResources: 15,<br>
-                  numberCssResources: 2,<br>
-                  numTotalRoundTrips: 33,<br>
-                  numRenderBlockingRoundTrips: 5
-              </div>
-            </div>
-          </div>
-        </ReadLess>
-      </div>
-      <div class="column is-5 is-offset-2">
-        <div class="device-label">
-          Mobile
-        </div>
-        <BvDonut :color="'red'"></BvDonut>
-        <ReadLess
-        :maxHeightInitial="'0px'"
-        :maxHeightAfter="'1760px'"
-        class="is-hidden-tablet">
-        <div class="columns">
-          <div class="column">
-            <div class="device-label">
-                numberResources: 53,<br>
-                numberHosts: 15,<br>
-                totalRequestBytes: 8304,<br>
-                numberStaticResources: 35,<br>
-                htmlResponseBytes: 80474,<br>
-                overTheWireResponseBytes: 970506,<br>
-                cssResponseBytes: 631809,<br>
-                imageResponseBytes: 538294,<br>
-                javascriptResponseBytes: 1047857,<br>
-                otherResponseBytes: 2994,<br>
-                numberJsResources: 15,<br>
-                numberCssResources: 2,<br>
-                numTotalRoundTrips: 33,<br>
-                numRenderBlockingRoundTrips: 5
-            </div>
-          </div>
-        </div>
-      </ReadLess>
       </div>
     </div>
+    <!--     :fcp = "pageData.loadingExperience.metrics.fcp.median || 2"
+             :dcl = "pageData.loadingExperience.metrics.dcl.median || 1" -->
+    <BvDonut :speed="speed"
+             :fcp ="1"
+             :dcl="2"
+    ></BvDonut>
     <ReadLess
-      class="is-hidden-mobile"
       :maxHeightInitial="'0px'"
-      :maxHeightAfter="'1760px'">
+      :maxHeightAfter="'1760px'"
+      class="read-less">
       <div class="columns">
-        <div class="column is-5">
+        <div class="column">
           <div class="device-label">
-              numberResources: 53,<br>
-              numberHosts: 15,<br>
-              totalRequestBytes: 8304,<br>
-              numberStaticResources: 35,<br>
-              htmlResponseBytes: 80474,<br>
-              overTheWireResponseBytes: 970506,<br>
-              cssResponseBytes: 631809,<br>
-              imageResponseBytes: 538294,<br>
-              javascriptResponseBytes: 1047857,<br>
-              otherResponseBytes: 2994,<br>
-              numberJsResources: 15,<br>
-              numberCssResources: 2,<br>
-              numTotalRoundTrips: 33,<br>
-              numRenderBlockingRoundTrips: 5
-          </div>
-        </div>
-        <div class="column is-5 is-offset-2">
-          <div class="device-label">
-              numberResources: 53,<br>
-              numberHosts: 15,<br>
-              totalRequestBytes: 8304,<br>
-              numberStaticResources: 35,<br>
-              htmlResponseBytes: 80474,<br>
-              overTheWireResponseBytes: 970506,<br>
-              cssResponseBytes: 631809,<br>
-              imageResponseBytes: 538294,<br>
-              javascriptResponseBytes: 1047857,<br>
-              otherResponseBytes: 2994,<br>
-              numberJsResources: 15,<br>
-              numberCssResources: 2,<br>
-              numTotalRoundTrips: 33,<br>
-              numRenderBlockingRoundTrips: 5
+            <div class="pageStatItem" v-for="(statValue, statKey) in pageData.pageStats">
+              <span class="statKey">{{statKey}}</span> -
+              <span>{{statValue}}</span>
+            </div>
           </div>
         </div>
       </div>
@@ -122,23 +47,34 @@ export default {
   components: {
     BvDonut,
     ReadLess
+  },
+  props: [
+    'speed',
+    'snapshots',
+    'date',
+    'pageData',
+    'type'
+  ],
+  computed: {
+  },
+  methods: {
+    getImageUrl: function (data) {
+      return 'data:image/jpeg;base64,' + data.replace(/_/g, '/').replace(/-/g, '+')
+    }
   }
 }
 </script>
 <style lang="scss">
+  .snapshots {
+    margin-bottom: 50px;
+    .snapshotImage {
+      width: 60px;
+      height: 100px;
+      border: 1px solid lightgrey;
+    }
+  }
   .metric-item {
     padding-top: 20px;
-    padding-bottom: 50px;
-    border-bottom: 1px solid lightgray;
-  }
-  .period-label {
-    font-size: 15px;
-    margin-bottom: 20px;
-    color: rgba(136, 135, 135, 0.801);
-    text-transform: uppercase;
-    display: flex;
-    justify-content: center;
-    font-weight: 600;
   }
   .device-label {
     color: gray;
@@ -146,5 +82,16 @@ export default {
     margin-bottom: 20px;
     text-transform: uppercase;
     font-size: 13px;
+  }
+  .read-less {
+    margin-top: 20px;
+  }
+  .pageStatItem {
+    text-transform: capitalize;
+    line-height: 1.6;
+    .statKey {
+      font-weight: 600;
+      color: cadetblue;
+    }
   }
 </style>
