@@ -14,11 +14,9 @@
         </div>
       </div>
     </div>
-    <!--     :fcp = "pageData.loadingExperience.metrics.fcp.median || 2"
-             :dcl = "pageData.loadingExperience.metrics.dcl.median || 1" -->
     <BvDonut :speed="speed"
-             :fcp ="1"
-             :dcl="2"
+             :fcp = "firstContentPaint"
+             :dcl = "domContentLoaded"
     ></BvDonut>
     <ReadLess
       :maxHeightInitial="'0px'"
@@ -57,6 +55,20 @@ export default {
     'type'
   ],
   computed: {
+    firstContentPaint: function () {
+      if (this.pageData.loadingExperience.metrics) {
+        return this.pageData.loadingExperience.metrics.FIRST_CONTENTFUL_PAINT_MS.median / 1000 + 's'
+      } else {
+        return '...'
+      }
+    },
+    domContentLoaded: function () {
+      if (this.pageData.loadingExperience.metrics) {
+        return this.pageData.loadingExperience.metrics.DOM_CONTENT_LOADED_EVENT_FIRED_MS.median / 1000 + 's'
+      } else {
+        return '...'
+      }
+    }
   },
   methods: {
     getImageUrl: function (data) {

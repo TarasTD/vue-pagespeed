@@ -66,9 +66,9 @@ export default {
         }
       )
     },
-    getData: function (dinamic) {
+    getData: function () {
       this.loading = true
-      api.fetchTest(this.url, 'mobile').then(
+      api.fetchTest(this.url, 'desktop').then(
         (response) => {
           this.loading = false
           this.title = response.data.title

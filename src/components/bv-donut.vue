@@ -4,7 +4,7 @@
     <div class="side-values">
         <div class="side-top">
           <div class="side-top-label" :style="{color: color}">
-            {{fcp}}s
+            {{fcp}}
           </div>
           <div class="side-top-value">
             First Content Paint
@@ -13,7 +13,7 @@
         <div class="side-divider"></div>
         <div class="side-bottom">
           <div class="side-bottom-label">
-            {{dcl}}s
+            {{dcl}}
           </div>
           <div class="side-bottom-value">
             DOM Content Loaded
